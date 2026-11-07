@@ -1,0 +1,18 @@
+language: python
+dist: bionic
+python:
+  - "2.7"
+  - "3.5"
+  - "3.6"
+  - "3.7"
+  - "3.8"
+install:
+ - python setup.py install
+ - pip install -r test_reqs.txt
+script:
+ - python setup.py flake8
+ - python commonmark/tests/unit_tests.py
+ - python setup.py test
+ - cmark commonmark/tests/test.md
+ - cmark commonmark/tests/test.md -a
+ - cmark commonmark/tests/test.md -aj
