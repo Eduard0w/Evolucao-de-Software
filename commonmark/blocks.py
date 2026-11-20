@@ -708,31 +708,12 @@ class Parser(object):
             except IndexError:
                 c = None
 
-    def incorporate_line(self, ln):
-        """Analyze a line of text and update the document appropriately.
-
-        We parse markdown text by calling this on each line of input,
-        then finalizing the document.
-        """
-        all_matched = True
-
-        container = self.doc
-        self.oldtip = self.tip
-        self.offset = 0
-        self.column = 0
-        self.blank = False
-        self.partially_consumed_tab = False
-        self.line_number += 1
-
-        # replace NUL characters for security
+    def sanitize_line(self, ln):
         if re.search(r'\u0000', ln) is not None:
             ln = re.sub(r'\0', '\uFFFD', ln)
+        return ln
 
-        self.current_line = ln
-
-        # For each containing block, try to parse the associated line start.
-        # Bail out on failure: container will point to the last matching block.
-        # Set all_matched to false if not all containers match.
+    def continue_open_blocks(self, container, all_matched, ln):
         while True:
             last_child = container.last_child
             if not (last_child and last_child.is_open):
@@ -751,7 +732,7 @@ class Parser(object):
             elif rv == 2:
                 # we've hit end of line for fenced code close and can return
                 self.last_line_length = len(ln)
-                return
+                return container, all_matched, True
             else:
                 raise ValueError(
                         'continue_ returned illegal value, must be 0, 1, or 2')
@@ -761,15 +742,11 @@ class Parser(object):
                 container = container.parent
                 break
 
-        self.all_closed = (container == self.oldtip)
-        self.last_matched_container = container
+        return container, all_matched, False
 
-        matched_leaf = container.t != 'paragraph' and \
-            self.blocks[container.t].accepts_lines
+    def find_block_start(self, matched_leaf, container, ln):
         starts = self.block_starts
         starts_len = len(starts.METHODS)
-        # Unless last matched container is a code block, try new container
-        # starts, adding children to the last matched container:
         while not matched_leaf:
             self.find_next_nonspace()
 
@@ -797,6 +774,77 @@ class Parser(object):
                 self.advance_next_nonspace()
                 break
 
+        return container, matched_leaf
+
+
+    def add_new_line(self, container, container_name, ln):
+        if self.blocks[container_name].accepts_lines:
+            self.add_line()
+            # if HtmlBlock, check for end condition
+            if container_name == 'html_block' and \
+               container.html_block_type >= 1 and \
+               container.html_block_type <= 5 and \
+               re.search(
+                   reHtmlBlockClose[container.html_block_type],
+                   self.current_line[self.offset:]):
+                self.finalize(container, self.line_number)
+        elif self.offset < len(ln) and not self.blank:
+            # create a paragraph container for one line
+            container = self.add_child('paragraph', self.offset)
+            self.advance_next_nonspace()
+            self.add_line()
+
+        return container
+
+    def incorporate_line(self, ln):
+        """Analyze a line of text and update the document appropriately.
+
+        We parse markdown text by calling this on each line of input,
+        then finalizing the document.
+        """
+        #Resposabilidade 1: inicialização do estado de processamento
+        all_matched = True
+
+        container = self.doc
+        self.oldtip = self.tip
+        self.offset = 0
+        self.column = 0
+        self.blank = False
+        self.partially_consumed_tab = False
+        self.line_number += 1
+
+        # Responsabilidade 2: substitui caracteres nulos
+        # replace NUL characters for security
+        ln = self.sanitize_line(ln)
+
+        self.current_line = ln
+
+        # Responsabilidade 3: Assosiar a nova linha com a antiga linha.
+        # Ou seja, verifica se a linha está associada ou não com o texto já estabelecido
+        # For each containing block, try to parse the associated line start.
+        # Bail out on failure: container will point to the last matching block.
+        # Set all_matched to false if not all containers match.
+        container, all_matched, should_return = (
+            self.continue_open_blocks(container, all_matched, ln)
+        )
+
+        if should_return:
+            return
+
+        self.all_closed = (container == self.oldtip)
+        self.last_matched_container = container
+
+        matched_leaf = container.t != 'paragraph' and \
+            self.blocks[container.t].accepts_lines
+
+
+        # Responsabilidade 4: caso não consiga associar a nova linha com a antiga,
+        # cria um novo nó
+        # Unless last matched container is a code block, try new container
+        # starts, adding children to the last matched container:
+        container, matched_leaf = self.find_block_start(matched_leaf, container, ln)
+
+        # Responsabilidade 5:
         # What remains at the offset is a text line. Add the text to the
         # appropriate container.
         if not self.all_closed and not self.blank and \
@@ -806,6 +854,7 @@ class Parser(object):
         else:
             # not a lazy continuation
             # finalize any blocks not matched
+            # responsabilidade 6: fecha linha que não tem conexão
             self.close_unmatched_blocks()
             if self.blank and container.last_child:
                 container.last_child.last_line_blank = True
@@ -830,21 +879,8 @@ class Parser(object):
                 cont.last_line_blank = last_line_blank
                 cont = cont.parent
 
-            if self.blocks[t].accepts_lines:
-                self.add_line()
-                # if HtmlBlock, check for end condition
-                if t == 'html_block' and \
-                   container.html_block_type >= 1 and \
-                   container.html_block_type <= 5 and \
-                   re.search(
-                       reHtmlBlockClose[container.html_block_type],
-                       self.current_line[self.offset:]):
-                    self.finalize(container, self.line_number)
-            elif self.offset < len(ln) and not self.blank:
-                # create a paragraph container for one line
-                container = self.add_child('paragraph', self.offset)
-                self.advance_next_nonspace()
-                self.add_line()
+            # Responsabilidade 7: Adiciona linhas novas em blocos já existentes
+            container = self.add_new_line(container, t, ln)
 
         self.last_line_length = len(ln)
 
