@@ -19,7 +19,7 @@ except ImportError:
     def text():
         pass
 
-
+from unittest.mock import MagicMock
 import commonmark
 from commonmark.blocks import Parser
 from commonmark.render.html import HtmlRenderer
@@ -151,6 +151,26 @@ class TestParser(unittest.TestCase):
     @example('* unicode: \u2020')
     def test_text(self, s):
         self.parser.parse(s)
+
+    def test_sanitize_line_nul_character(self):
+        result = self.parser.sanitize_line("hello\u0000world")
+        self.assertEqual(result, "hello\uFFFDworld")
+
+    def test_continue_open_block_invalid_return_value(self):
+        self.parser.current_line = "some line"
+        self.parser.offset = 0
+        self.parser.column = 0
+
+        child_node = Node('paragraph', [[1, 1], [0, 0]])
+        child_node.is_open = True
+        self.parser.doc.append_child(child_node)
+
+        mock_block = MagicMock()
+        mock_block.continue_.return_value = 3
+        self.parser.blocks['paragraph'] = mock_block
+
+        with self.assertRaises(ValueError):
+            self.parser.continue_open_blocks(self.parser.doc, True, "some line")
 
 
 if __name__ == '__main__':
