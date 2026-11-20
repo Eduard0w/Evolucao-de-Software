@@ -110,6 +110,61 @@ def smart_dashes(chars):
     return ('\u2014' * em_count) + ('\u2013' * en_count)
 
 
+# Helpers used by InlineParser.scanDelims to classify delimiter runs.
+
+QUOTE_CHARS = ("'", '"')
+
+
+def _is_whitespace(c):
+    """Unicode whitespace, as defined by the CommonMark spec.
+
+    In Python 3 ``\\s`` already includes the no-break space (U+00A0), so
+    the extra check that existed for Python 2 is no longer needed.
+    """
+    return reUnicodeWhitespaceChar.search(c) is not None
+
+
+def _is_punctuation(c):
+    """ASCII or Unicode punctuation, as defined by the CommonMark spec."""
+    return rePunctuation.search(c) is not None
+
+
+def _flanking(before, after):
+    """Return ``(left_flanking, right_flanking)`` for a delimiter run
+    surrounded by the characters ``before`` and ``after``.
+
+    A run is left-flanking when it is not followed by whitespace and,
+    if it is followed by punctuation, it is preceded by whitespace or
+    punctuation. Right-flanking is the mirror image.
+    """
+    left = not _is_whitespace(after) and (
+        not _is_punctuation(after) or
+        _is_whitespace(before) or _is_punctuation(before))
+    right = not _is_whitespace(before) and (
+        not _is_punctuation(before) or
+        _is_whitespace(after) or _is_punctuation(after))
+    return left, right
+
+
+def _open_close_rules(c, left_flanking, right_flanking, before, after):
+    """Return ``(can_open, can_close)`` for the delimiter character ``c``.
+
+    * ``*``: opens if left-flanking, closes if right-flanking.
+    * ``_``: same, but intraword runs (both flankings) can only open
+      after punctuation and only close before punctuation.
+    * quotes (smart punctuation): open only when not right-flanking.
+    """
+    if c == '_':
+        can_open = left_flanking and (
+            not right_flanking or _is_punctuation(before))
+        can_close = right_flanking and (
+            not left_flanking or _is_punctuation(after))
+        return can_open, can_close
+    if c in QUOTE_CHARS:
+        return left_flanking and not right_flanking, right_flanking
+    return left_flanking, right_flanking
+
+
 class InlineParser(object):
     """INLINE PARSER
 
@@ -251,62 +306,43 @@ class InlineParser(object):
         the number of delimiters and whether they are positioned such that
         they can open and/or close emphasis or strong emphasis.  A utility
         function for strong/emph parsing.
+
+        The scan does not move ``self.pos``.
         """
-        numdelims = 0
-        startpos = self.pos
-
-        if c == "'" or c == '"':
-            numdelims += 1
-            self.pos += 1
-        else:
-            while (self.peek() == c):
-                numdelims += 1
-                self.pos += 1
-
+        numdelims = self._count_delims(c)
         if numdelims == 0:
             return None
 
-        c_before = '\n' if startpos == 0 else self.subject[startpos - 1]
+        before = self._char_at(self.pos - 1)
+        after = self._char_at(self.pos + numdelims)
+        left_flanking, right_flanking = _flanking(before, after)
+        can_open, can_close = _open_close_rules(
+            c, left_flanking, right_flanking, before, after)
 
-        c_after = self.peek()
-        if c_after is None:
-            c_after = '\n'
-
-        # Python 2 doesn't recognize '\xa0' as whitespace
-        after_is_whitespace = re.search(reUnicodeWhitespaceChar, c_after) or \
-            c_after == '\xa0'
-        after_is_punctuation = re.search(rePunctuation, c_after)
-        before_is_whitespace = re.search(
-            reUnicodeWhitespaceChar, c_before) or \
-            c_before == '\xa0'
-        before_is_punctuation = re.search(rePunctuation, c_before)
-
-        left_flanking = not after_is_whitespace and \
-            (not after_is_punctuation or
-             before_is_whitespace or
-             before_is_punctuation)
-        right_flanking = not before_is_whitespace and \
-            (not before_is_punctuation or
-             after_is_whitespace or
-             after_is_punctuation)
-        if c == '_':
-            can_open = left_flanking and \
-                (not right_flanking or before_is_punctuation)
-            can_close = right_flanking and \
-                (not left_flanking or after_is_punctuation)
-        elif c == "'" or c == '"':
-            can_open = left_flanking and not right_flanking
-            can_close = right_flanking
-        else:
-            can_open = left_flanking
-            can_close = right_flanking
-
-        self.pos = startpos
         return {
             'numdelims': numdelims,
             'can_open': can_open,
             'can_close': can_close,
         }
+
+    def _count_delims(self, c):
+        """Count how many consecutive ``c`` start at ``self.pos``.
+
+        Quotes are always handled one at a time.
+        """
+        if c in QUOTE_CHARS:
+            return 1
+        end = self.pos
+        while end < len(self.subject) and self.subject[end] == c:
+            end += 1
+        return end - self.pos
+
+    def _char_at(self, index):
+        """Character at ``index``; outside the subject counts as a newline,
+        as the CommonMark spec requires for the start and end of a line."""
+        if 0 <= index < len(self.subject):
+            return self.subject[index]
+        return '\n'
 
     def handleDelim(self, cc, block):
         """Handle a delimiter marker for emphasis or a quote."""
