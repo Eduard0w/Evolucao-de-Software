@@ -165,6 +165,56 @@ def _open_close_rules(c, left_flanking, right_flanking, before, after):
     return left_flanking, right_flanking
 
 
+# Helpers used by InlineParser.processEmphasis.
+
+EMPHASIS_CHARS = ('*', '_')
+DELIMITER_CHARS = EMPHASIS_CHARS + QUOTE_CHARS
+# (opening, closing) typographic quotes for smart punctuation
+SMART_QUOTES = {
+    "'": ('\u2018', '\u2019'),
+    '"': ('\u201C', '\u201D'),
+}
+
+
+def _is_odd_match(opener, closer):
+    """CommonMark "rule of three".
+
+    If one of the delimiters can both open and close emphasis, the sum of
+    the lengths of the two runs must not be a multiple of 3, unless both
+    lengths are multiples of 3. Example: in ``*foo**bar*`` the ``**`` does
+    not close the first ``*``.
+    """
+    can_be_both = closer.get('can_open') or opener.get('can_close')
+    return bool(can_be_both) and \
+        closer['origdelims'] % 3 != 0 and \
+        (opener['origdelims'] + closer['origdelims']) % 3 == 0
+
+
+def _drop_last_chars(node, count):
+    """Remove the last ``count`` characters of a text node."""
+    node.literal = node.literal[:len(node.literal) - count]
+
+
+def _move_nodes_between(first, last, parent):
+    """Move the siblings strictly between ``first`` and ``last`` into
+    ``parent``, keeping their order."""
+    node = first.nxt
+    while node and node != last:
+        following = node.nxt
+        node.unlink()
+        parent.append_child(node)
+        node = following
+
+
+def _apply_smart_quote(opener, closer):
+    """Replace straight quotes by typographic ones; returns next closer."""
+    opening, closing = SMART_QUOTES[closer['cc']]
+    closer['node'].literal = closing
+    if opener is not None:
+        opener['node'].literal = opening
+    return closer['next']
+
+
 class InlineParser(object):
     """INLINE PARSER
 
@@ -393,122 +443,119 @@ class InlineParser(object):
             top['previous'] = bottom
 
     def processEmphasis(self, stack_bottom):
-        openers_bottom = {
-            '_': stack_bottom,
-            '*': stack_bottom,
-            "'": stack_bottom,
-            '"': stack_bottom,
-        }
+        """Resolve the delimiter stack into emph/strong nodes and smart
+        quotes, following the "process emphasis" procedure of the
+        CommonMark spec.
+
+        Closers are visited from bottom to top. For each closer the
+        nearest compatible opener is searched; when found, the inline
+        nodes between them become children of a new emphasis node.
+        """
+        openers_bottom = dict.fromkeys(DELIMITER_CHARS, stack_bottom)
+        # Kept across closers on purpose: when no opener is examined for a
+        # closer, the value from the previous closer is reused, exactly as in
+        # the reference implementation (commonmark.js).
         odd_match = False
-        use_delims = 0
 
-        # Find first closer above stack_bottom
-        closer = self.delimiters
-        while closer is not None and closer.get('previous') != stack_bottom:
-            closer = closer.get('previous')
-
-        # Move forward, looking for closers, and handling each
+        closer = self._first_delimiter_above(stack_bottom)
         while closer is not None:
             if not closer.get('can_close'):
                 closer = closer.get('next')
+                continue
+
+            opener, odd_match = self._find_opener(
+                closer, stack_bottom, openers_bottom, odd_match)
+            old_closer = closer
+
+            if closer.get('cc') in EMPHASIS_CHARS:
+                closer = self._apply_emphasis(opener, closer)
             else:
-                # found emphasis closer. now look back for first
-                # matching opener:
-                opener = closer.get('previous')
-                opener_found = False
-                closercc = closer.get('cc')
-                while (opener is not None and opener != stack_bottom and
-                       opener != openers_bottom[closercc]):
-                    odd_match = (closer.get('can_open') or
-                                 opener.get('can_close')) and \
-                                 closer['origdelims'] % 3 != 0 and \
-                                 (opener['origdelims'] +
-                                  closer['origdelims']) % 3 == 0
-                    if opener.get('cc') == closercc and \
-                       opener.get('can_open') and \
-                       not odd_match:
-                        opener_found = True
-                        break
-                    opener = opener.get('previous')
-                old_closer = closer
+                closer = _apply_smart_quote(opener, closer)
 
-                if closercc == '*' or closercc == '_':
-                    if not opener_found:
-                        closer = closer.get('next')
-                    else:
-                        # Calculate actual number of delimiters used from
-                        # closer
-                        use_delims = 2 if (
-                            closer['numdelims'] >= 2 and
-                            opener['numdelims'] >= 2) else 1
+            if opener is None and not odd_match:
+                self._lower_openers_bottom(openers_bottom, old_closer)
 
-                        opener_inl = opener.get('node')
-                        closer_inl = closer.get('node')
+        self._clear_delimiters(stack_bottom)
 
-                        # Remove used delimiters from stack elts and inlines
-                        opener['numdelims'] -= use_delims
-                        closer['numdelims'] -= use_delims
-                        opener_inl.literal = opener_inl.literal[
-                            :len(opener_inl.literal) - use_delims]
-                        closer_inl.literal = closer_inl.literal[
-                            :len(closer_inl.literal) - use_delims]
+    def _first_delimiter_above(self, stack_bottom):
+        """First delimiter on the stack whose previous is ``stack_bottom``."""
+        delim = self.delimiters
+        while delim is not None and delim.get('previous') != stack_bottom:
+            delim = delim.get('previous')
+        return delim
 
-                        # Build contents for new Emph element
-                        if use_delims == 1:
-                            emph = Node('emph', None)
-                        else:
-                            emph = Node('strong', None)
+    @staticmethod
+    def _find_opener(closer, stack_bottom, openers_bottom, odd_match):
+        """Walk down from ``closer`` looking for a matching opener.
 
-                        tmp = opener_inl.nxt
-                        while tmp and tmp != closer_inl:
-                            nxt = tmp.nxt
-                            tmp.unlink()
-                            emph.append_child(tmp)
-                            tmp = nxt
+        Returns ``(opener, odd_match)``; ``opener`` is None when no match
+        exists. ``odd_match`` is the "rule of three" result for the last
+        opener examined (or the value received, if none was examined).
+        """
+        closercc = closer.get('cc')
+        opener = closer.get('previous')
+        while (opener is not None and opener != stack_bottom and
+               opener != openers_bottom[closercc]):
+            odd_match = _is_odd_match(opener, closer)
+            if opener.get('cc') == closercc and \
+               opener.get('can_open') and not odd_match:
+                return opener, odd_match
+            opener = opener.get('previous')
+        return None, odd_match
 
-                        opener_inl.insert_after(emph)
+    def _apply_emphasis(self, opener, closer):
+        """Turn a matched ``*``/``_`` pair into an emph or strong node.
 
-                        # Remove elts between opener and closer in delimiters
-                        # stack
-                        self.removeDelimitersBetween(opener, closer)
+        Returns the next closer to visit. If ``closer`` still has unused
+        delimiters (e.g. ``***``), it is returned to be processed again.
+        """
+        if opener is None:
+            return closer.get('next')
 
-                        # If opener has 0 delims, remove it and the inline
-                        if opener['numdelims'] == 0:
-                            opener_inl.unlink()
-                            self.removeDelimiter(opener)
+        use_delims = 2 if (closer['numdelims'] >= 2 and
+                           opener['numdelims'] >= 2) else 1
+        opener_inl = opener.get('node')
+        closer_inl = closer.get('node')
 
-                        if closer['numdelims'] == 0:
-                            closer_inl.unlink()
-                            tempstack = closer['next']
-                            self.removeDelimiter(closer)
-                            closer = tempstack
+        # Remove used delimiters from stack elts and inlines
+        opener['numdelims'] -= use_delims
+        closer['numdelims'] -= use_delims
+        _drop_last_chars(opener_inl, use_delims)
+        _drop_last_chars(closer_inl, use_delims)
 
-                elif closercc == "'":
-                    closer['node'].literal = '\u2019'
-                    if opener_found:
-                        opener['node'].literal = '\u2018'
-                    closer = closer['next']
+        emph = Node('emph' if use_delims == 1 else 'strong', None)
+        _move_nodes_between(opener_inl, closer_inl, emph)
+        opener_inl.insert_after(emph)
 
-                elif closercc == '"':
-                    closer['node'].literal = '\u201D'
-                    if opener_found:
-                        opener['node'].literal = '\u201C'
-                    closer = closer['next']
+        # Delimiters between opener and closer can no longer match anything
+        self.removeDelimitersBetween(opener, closer)
 
-                if not opener_found and not odd_match:
-                    # Set lower bound for future searches for openers:
-                    # We don't do this with odd_match because a **
-                    # that doesn't match an earlier * might turn into
-                    # an opener, and the * might be matched by something
-                    # else.
-                    openers_bottom[closercc] = old_closer['previous']
-                    if not old_closer['can_open']:
-                        # We can remove a closer that can't be an opener,
-                        # once we've seen there's no matching opener:
-                        self.removeDelimiter(old_closer)
+        if opener['numdelims'] == 0:
+            opener_inl.unlink()
+            self.removeDelimiter(opener)
 
-        # Remove all delimiters
-        while self.delimiters is not None and self.delimiters != stack_bottom:
+        if closer['numdelims'] == 0:
+            closer_inl.unlink()
+            next_closer = closer['next']
+            self.removeDelimiter(closer)
+            return next_closer
+        return closer
+
+    def _lower_openers_bottom(self, openers_bottom, closer):
+        """No opener exists for ``closer``: future searches for its
+        character can stop here. A closer that cannot open is discarded.
+
+        This is not done for an odd match, because a ``**`` that does not
+        match an earlier ``*`` might still become an opener.
+        """
+        openers_bottom[closer['cc']] = closer['previous']
+        if not closer['can_open']:
+            self.removeDelimiter(closer)
+
+    def _clear_delimiters(self, stack_bottom):
+        """Remove every delimiter above ``stack_bottom``."""
+        while self.delimiters is not None and \
+                self.delimiters != stack_bottom:
             self.removeDelimiter(self.delimiters)
 
     def parseLinkTitle(self):
