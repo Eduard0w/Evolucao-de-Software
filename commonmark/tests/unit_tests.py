@@ -21,7 +21,7 @@ except ImportError:
 
 from unittest.mock import MagicMock
 import commonmark
-from commonmark.blocks import Parser
+from commonmark.blocks import Parser, parse_list_marker
 from commonmark.render.html import HtmlRenderer
 from commonmark.inlines import InlineParser
 from commonmark.node import NodeWalker, Node
@@ -114,6 +114,69 @@ class TestCommonmark(unittest.TestCase):
             self.assertEqual(s, '<p>' + ('[](' * i) + '</p>\n',
                              '[]( %d deep' % (i,))
             i *= 10
+
+
+class TestParseListMarker(unittest.TestCase):
+    def parse_marker(self, line, container_t='document'):
+        parser = Parser()
+        parser.current_line = line
+        parser.find_next_nonspace()
+        container = Node(container_t, [[1, 1], [0, 0]])
+        return parse_list_marker(parser, container)
+
+    def test_bullet_markers(self):
+        for char in ('-', '+', '*'):
+            data = self.parse_marker(char + ' item')
+            self.assertEqual(data['type'], 'bullet')
+            self.assertEqual(data['bullet_char'], char)
+            self.assertIsNone(data['start'])
+            self.assertIsNone(data['delimiter'])
+            self.assertEqual(data['padding'], 2)
+
+    def test_ordered_markers_and_delimiters(self):
+        for line, start, delimiter, padding in (
+                ('1. item', 1, '.', 3),
+                ('12) item', 12, ')', 4),
+                ('123. item', 123, '.', 5)):
+            data = self.parse_marker(line)
+            self.assertEqual(data['type'], 'ordered')
+            self.assertEqual(data['start'], start)
+            self.assertEqual(data['delimiter'], delimiter)
+            self.assertIsNone(data['bullet_char'])
+            self.assertEqual(data['padding'], padding)
+
+    def test_ordered_marker_interrupting_paragraph(self):
+        self.assertIsNone(self.parse_marker('2. item', 'paragraph'))
+        data = self.parse_marker('1. item', 'paragraph')
+        self.assertEqual(data['start'], 1)
+        self.assertEqual(data['delimiter'], '.')
+
+    def test_valid_spacing(self):
+        self.assertEqual(self.parse_marker('-   item')['padding'], 4)
+        self.assertEqual(self.parse_marker('1.    item')['padding'], 6)
+
+    def test_invalid_spacing(self):
+        for line in ('-item', '+item', '*item', '1.item', '12)item'):
+            self.assertIsNone(self.parse_marker(line))
+        self.assertEqual(self.parse_marker('-     item')['padding'], 2)
+        self.assertEqual(self.parse_marker('1.     item')['padding'], 3)
+
+    def test_non_list_inputs(self):
+        for line in ('text', '1.1 item', '    - item', '    1. item'):
+            self.assertIsNone(self.parse_marker(line))
+
+    def test_return_format_and_marker_offset(self):
+        self.assertEqual(
+            self.parse_marker('  - item'),
+            {
+                'type': 'bullet',
+                'tight': True,
+                'bullet_char': '-',
+                'start': None,
+                'delimiter': None,
+                'padding': 2,
+                'marker_offset': 2,
+            })
 
 
 class TestHtmlRenderer(unittest.TestCase):

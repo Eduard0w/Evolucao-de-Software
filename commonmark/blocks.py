@@ -82,73 +82,105 @@ def ends_with_blank_line(block):
     return False
 
 
-def parse_list_marker(parser, container):
-    """ Parse a list marker and return data on the marker (type,
-    start, delimiter, bullet character, padding) or None."""
-    rest = parser.current_line[parser.next_nonspace:]
-    data = {
-        'type': None,
-        'tight': True,  # lists are tight by default
-        'bullet_char': None,
-        'start': None,
-        'delimiter': None,
-        'padding': None,
-        'marker_offset': parser.indent,
+def _parse_bullet_marker(rest):
+    match = re.search(reBulletListMarker, rest)
+    if match is None:
+        return None, None
+    return match, {
+        'type': 'bullet',
+        'bullet_char': match.group()[0],
     }
-    if parser.indent >= 4:
-        return None
-    m = re.search(reBulletListMarker, rest)
-    m2 = re.search(reOrderedListMarker, rest)
-    if m:
-        data['type'] = 'bullet'
-        data['bullet_char'] = m.group()[0]
-    elif m2 and (container.t != 'paragraph' or m2.group(1) == '1'):
-        m = m2
-        data['type'] = 'ordered'
-        data['start'] = int(m.group(1))
-        data['delimiter'] = m.group(2)
-    else:
-        return None
 
-    # make sure we have spaces after
-    nextc = peek(parser.current_line, parser.next_nonspace + len(m.group()))
-    if not (nextc is None or nextc == '\t' or nextc == ' '):
-        return None
 
-    # if it interrupts paragraph, make sure first line isn't blank
-    if container.t == 'paragraph' and \
-       not re.search(
-           reNonSpace,
-           parser.current_line[parser.next_nonspace + len(m.group()):]):
-        return None
+def _parse_ordered_marker(rest, container_t):
+    match = re.search(reOrderedListMarker, rest)
+    if match is None or (container_t == 'paragraph' and
+                         match.group(1) != '1'):
+        return None, None
+    return match, {
+        'type': 'ordered',
+        'start': int(match.group(1)),
+        'delimiter': match.group(2),
+    }
 
-    # we've got a match! advance offset and calculate padding
-    parser.advance_next_nonspace()  # to start of marker
-    parser.advance_offset(len(m.group()), True)  # to end of marker
+
+def _has_space_after_marker(parser, marker_len):
+    nextc = peek(parser.current_line, parser.next_nonspace + marker_len)
+    return nextc is None or is_space_or_tab(nextc)
+
+
+def _has_content_after_marker(parser, marker_len):
+    return bool(re.search(
+        reNonSpace,
+        parser.current_line[parser.next_nonspace + marker_len:]))
+
+
+def _is_padding_space(parser, spaces_start_col):
+    return (
+        parser.column - spaces_start_col < 5 and
+        is_space_or_tab(peek(parser.current_line, parser.offset))
+    )
+
+
+def _use_default_padding(spaces_after_marker, blank_item):
+    return spaces_after_marker >= 5 or spaces_after_marker < 1 or blank_item
+
+
+def _calculate_padding(parser, marker_len, data):
+    parser.advance_next_nonspace()
+    parser.advance_offset(marker_len, True)
     spaces_start_col = parser.column
     spaces_start_offset = parser.offset
-    while True:
+
+    parser.advance_offset(1, True)
+    while _is_padding_space(parser, spaces_start_col):
         parser.advance_offset(1, True)
-        nextc = peek(parser.current_line, parser.offset)
-        if parser.column - spaces_start_col < 5 and \
-           is_space_or_tab(nextc):
-            pass
-        else:
-            break
+
     blank_item = peek(parser.current_line, parser.offset) is None
     spaces_after_marker = parser.column - spaces_start_col
-    if spaces_after_marker >= 5 or \
-       spaces_after_marker < 1 or \
-       blank_item:
-        data['padding'] = len(m.group()) + 1
+    if _use_default_padding(spaces_after_marker, blank_item):
+        data['padding'] = marker_len + 1
         parser.column = spaces_start_col
         parser.offset = spaces_start_offset
         if is_space_or_tab(peek(parser.current_line, parser.offset)):
             parser.advance_offset(1, True)
     else:
-        data['padding'] = len(m.group()) + spaces_after_marker
+        data['padding'] = marker_len + spaces_after_marker
+
+
+def parse_list_marker(parser, container):
+    """ Parse a list marker and return data on the marker (type,
+    start, delimiter, bullet character, padding) or None."""
+    if parser.indent >= 4:
+        return None
+
+    rest = parser.current_line[parser.next_nonspace:]
+    match, marker_data = _parse_bullet_marker(rest)
+    if match is None:
+        match, marker_data = _parse_ordered_marker(rest, container.t)
+    if match is None:
+        return None
+
+    marker_len = len(match.group())
+    if not _has_space_after_marker(parser, marker_len):
+        return None
+    if container.t == 'paragraph' and \
+       not _has_content_after_marker(parser, marker_len):
+        return None
+
+    data = {
+        'type': marker_data['type'],
+        'tight': True,  # lists are tight by default
+        'bullet_char': marker_data.get('bullet_char'),
+        'start': marker_data.get('start'),
+        'delimiter': marker_data.get('delimiter'),
+        'padding': None,
+        'marker_offset': parser.indent,
+    }
+    _calculate_padding(parser, marker_len, data)
 
     return data
+
 
 
 def lists_match(list_data, item_data):
