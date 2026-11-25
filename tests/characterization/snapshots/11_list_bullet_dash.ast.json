@@ -1,0 +1,159 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "list"
+      },
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Item A\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Item A",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Item A\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Item B\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Item B",
+        "type": "text"
+      }
+    ],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "string_content": "Item B\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Item C\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Item C",
+        "type": "text"
+      }
+    ],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "string_content": "Item C\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "list"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

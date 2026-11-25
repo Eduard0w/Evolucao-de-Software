@@ -1,0 +1,33 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "type": "block_quote"
+      },
+      {
+        "children": [],
+        "string_content": "Citação simples em bloco.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Citação simples em bloco.",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Citação simples em bloco.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "block_quote"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

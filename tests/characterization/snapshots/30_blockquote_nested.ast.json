@@ -1,0 +1,56 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "type": "block_quote"
+      },
+      {
+        "children": [],
+        "string_content": "Nível 1\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Nível 1",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "type": "block_quote"
+      },
+      {
+        "children": [],
+        "string_content": "Nível 2 aninhado\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Nível 2 aninhado",
+        "type": "text"
+      }
+    ],
+    "string_content": "Nível 1\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "string_content": "Nível 2 aninhado\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "block_quote"
+  },
+  {
+    "children": [],
+    "type": "block_quote"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

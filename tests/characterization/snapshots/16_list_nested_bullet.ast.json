@@ -1,0 +1,226 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "list"
+      },
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Pai 1\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Pai 1",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "list"
+      },
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Filho 1.1\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Filho 1.1",
+        "type": "text"
+      }
+    ],
+    "string_content": "Pai 1\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "string_content": "Filho 1.1\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Filho 1.2\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Filho 1.2",
+        "type": "text"
+      }
+    ],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "string_content": "Filho 1.2\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "list"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Pai 2\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Pai 2",
+        "type": "text"
+      }
+    ],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "string_content": "Pai 2\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "list"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

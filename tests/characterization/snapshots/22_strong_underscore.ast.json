@@ -1,0 +1,42 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Texto com __negrito com sublinhado__.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Texto com ",
+        "type": "text"
+      },
+      {
+        "children": [],
+        "type": "strong"
+      },
+      {
+        "literal": "negrito com sublinhado",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "literal": ".",
+        "type": "text"
+      }
+    ],
+    "type": "strong"
+  },
+  {
+    "children": [],
+    "string_content": "Texto com __negrito com sublinhado__.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

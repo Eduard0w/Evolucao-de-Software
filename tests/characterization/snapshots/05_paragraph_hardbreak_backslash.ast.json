@@ -1,0 +1,32 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Linha com quebra dura\\\napós barra invertida.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Linha com quebra dura",
+        "type": "text"
+      },
+      {
+        "type": "linebreak"
+      },
+      {
+        "literal": "após barra invertida.",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Linha com quebra dura\\\napós barra invertida.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

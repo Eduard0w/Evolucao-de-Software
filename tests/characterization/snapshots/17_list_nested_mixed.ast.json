@@ -1,0 +1,185 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": null,
+          "delimiter": ".",
+          "marker_offset": 0,
+          "padding": 3,
+          "start": 1,
+          "tight": true,
+          "type": "ordered"
+        },
+        "type": "list"
+      },
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": null,
+          "delimiter": ".",
+          "marker_offset": 0,
+          "padding": 3,
+          "start": 1,
+          "tight": true,
+          "type": "ordered"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Ordenado pai\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Ordenado pai",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "list"
+      },
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Marcado filho\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Marcado filho",
+        "type": "text"
+      }
+    ],
+    "string_content": "Ordenado pai\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "string_content": "Marcado filho\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "list"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": null,
+          "delimiter": ".",
+          "marker_offset": 0,
+          "padding": 3,
+          "start": 2,
+          "tight": true,
+          "type": "ordered"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Ordenado dois\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Ordenado dois",
+        "type": "text"
+      }
+    ],
+    "list_data": {
+      "bullet_char": null,
+      "delimiter": ".",
+      "marker_offset": 0,
+      "padding": 3,
+      "start": 1,
+      "tight": true,
+      "type": "ordered"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "string_content": "Ordenado dois\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": null,
+      "delimiter": ".",
+      "marker_offset": 0,
+      "padding": 3,
+      "start": 2,
+      "tight": true,
+      "type": "ordered"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": null,
+      "delimiter": ".",
+      "marker_offset": 0,
+      "padding": 3,
+      "start": 1,
+      "tight": true,
+      "type": "ordered"
+    },
+    "type": "list"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

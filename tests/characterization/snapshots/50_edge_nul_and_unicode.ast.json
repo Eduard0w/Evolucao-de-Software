@@ -1,0 +1,25 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Acentos: áéíóú çãõ — NUL: � fim.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Acentos: áéíóú çãõ — NUL: � fim.",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Acentos: áéíóú çãõ — NUL: � fim.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

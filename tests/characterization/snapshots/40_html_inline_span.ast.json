@@ -1,0 +1,41 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Palavra com <span class=\"destaque\">destaque inline</span>.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Palavra com ",
+        "type": "text"
+      },
+      {
+        "literal": "<span class=\"destaque\">",
+        "type": "html_inline"
+      },
+      {
+        "literal": "destaque inline",
+        "type": "text"
+      },
+      {
+        "literal": "</span>",
+        "type": "html_inline"
+      },
+      {
+        "literal": ".",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Palavra com <span class=\"destaque\">destaque inline</span>.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

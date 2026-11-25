@@ -1,0 +1,41 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Decimal &#65; e hexadecimal &#x42;.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Decimal ",
+        "type": "text"
+      },
+      {
+        "literal": "A",
+        "type": "text"
+      },
+      {
+        "literal": " e hexadecimal ",
+        "type": "text"
+      },
+      {
+        "literal": "B",
+        "type": "text"
+      },
+      {
+        "literal": ".",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Decimal &#65; e hexadecimal &#x42;.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

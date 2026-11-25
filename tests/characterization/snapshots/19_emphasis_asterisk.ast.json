@@ -1,0 +1,42 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Texto com *ênfase em asterisco*.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Texto com ",
+        "type": "text"
+      },
+      {
+        "children": [],
+        "type": "emph"
+      },
+      {
+        "literal": "ênfase em asterisco",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "literal": ".",
+        "type": "text"
+      }
+    ],
+    "type": "emph"
+  },
+  {
+    "children": [],
+    "string_content": "Texto com *ênfase em asterisco*.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

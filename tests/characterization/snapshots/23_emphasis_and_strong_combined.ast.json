@@ -1,0 +1,79 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Texto com ***ênfase e negrito*** e **parte em *itálico***.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Texto com ",
+        "type": "text"
+      },
+      {
+        "children": [],
+        "type": "emph"
+      },
+      {
+        "children": [],
+        "type": "strong"
+      },
+      {
+        "literal": "ênfase e negrito",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "type": "strong"
+  },
+  {
+    "children": [
+      {
+        "literal": " e ",
+        "type": "text"
+      },
+      {
+        "children": [],
+        "type": "strong"
+      },
+      {
+        "literal": "parte em ",
+        "type": "text"
+      },
+      {
+        "children": [],
+        "type": "emph"
+      },
+      {
+        "literal": "itálico",
+        "type": "text"
+      }
+    ],
+    "type": "emph"
+  },
+  {
+    "children": [],
+    "type": "emph"
+  },
+  {
+    "children": [
+      {
+        "literal": ".",
+        "type": "text"
+      }
+    ],
+    "type": "strong"
+  },
+  {
+    "children": [],
+    "string_content": "Texto com ***ênfase e negrito*** e **parte em *itálico***.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

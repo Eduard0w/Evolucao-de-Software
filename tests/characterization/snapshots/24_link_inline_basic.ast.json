@@ -1,0 +1,44 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Visite [o site](https://example.com).\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Visite ",
+        "type": "text"
+      },
+      {
+        "children": [],
+        "destination": "https://example.com",
+        "type": "link"
+      },
+      {
+        "literal": "o site",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "literal": ".",
+        "type": "text"
+      }
+    ],
+    "destination": "https://example.com",
+    "type": "link"
+  },
+  {
+    "children": [],
+    "string_content": "Visite [o site](https://example.com).\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

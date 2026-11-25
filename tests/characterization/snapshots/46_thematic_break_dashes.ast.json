@@ -1,0 +1,43 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Acima\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Acima",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "type": "thematic_break"
+      },
+      {
+        "children": [],
+        "string_content": "Abaixo\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Abaixo",
+        "type": "text"
+      }
+    ],
+    "string_content": "Acima\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "string_content": "Abaixo\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

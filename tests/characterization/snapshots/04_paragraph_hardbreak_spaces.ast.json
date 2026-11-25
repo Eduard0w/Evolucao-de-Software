@@ -1,0 +1,32 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Linha com quebra dura  \napós dois espaços.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Linha com quebra dura",
+        "type": "text"
+      },
+      {
+        "type": "linebreak"
+      },
+      {
+        "literal": "após dois espaços.",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Linha com quebra dura  \napós dois espaços.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

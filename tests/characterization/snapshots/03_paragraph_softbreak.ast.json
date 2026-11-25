@@ -1,0 +1,32 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Linha um do parágrafo\nlinha dois no mesmo parágrafo.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Linha um do parágrafo",
+        "type": "text"
+      },
+      {
+        "type": "softbreak"
+      },
+      {
+        "literal": "linha dois no mesmo parágrafo.",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Linha um do parágrafo\nlinha dois no mesmo parágrafo.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

@@ -1,0 +1,118 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": null,
+          "delimiter": ")",
+          "marker_offset": 0,
+          "padding": 3,
+          "start": 1,
+          "tight": true,
+          "type": "ordered"
+        },
+        "type": "list"
+      },
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": null,
+          "delimiter": ")",
+          "marker_offset": 0,
+          "padding": 3,
+          "start": 1,
+          "tight": true,
+          "type": "ordered"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Item com parêntese\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Item com parêntese",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Item com parêntese\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": null,
+          "delimiter": ")",
+          "marker_offset": 0,
+          "padding": 3,
+          "start": 2,
+          "tight": true,
+          "type": "ordered"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Segundo item\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Segundo item",
+        "type": "text"
+      }
+    ],
+    "list_data": {
+      "bullet_char": null,
+      "delimiter": ")",
+      "marker_offset": 0,
+      "padding": 3,
+      "start": 1,
+      "tight": true,
+      "type": "ordered"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "string_content": "Segundo item\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": null,
+      "delimiter": ")",
+      "marker_offset": 0,
+      "padding": 3,
+      "start": 2,
+      "tight": true,
+      "type": "ordered"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": null,
+      "delimiter": ")",
+      "marker_offset": 0,
+      "padding": 3,
+      "start": 1,
+      "tight": true,
+      "type": "ordered"
+    },
+    "type": "list"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

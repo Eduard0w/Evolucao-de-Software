@@ -1,0 +1,65 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Veja a [referência][ref1] e [atalho].\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Veja a ",
+        "type": "text"
+      },
+      {
+        "children": [],
+        "destination": "https://example.com/ref1",
+        "title": "Ref 1",
+        "type": "link"
+      },
+      {
+        "literal": "referência",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "literal": " e ",
+        "type": "text"
+      },
+      {
+        "children": [],
+        "destination": "https://example.com/short",
+        "type": "link"
+      },
+      {
+        "literal": "atalho",
+        "type": "text"
+      }
+    ],
+    "destination": "https://example.com/ref1",
+    "title": "Ref 1",
+    "type": "link"
+  },
+  {
+    "children": [
+      {
+        "literal": ".",
+        "type": "text"
+      }
+    ],
+    "destination": "https://example.com/short",
+    "type": "link"
+  },
+  {
+    "children": [],
+    "string_content": "Veja a [referência][ref1] e [atalho].\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

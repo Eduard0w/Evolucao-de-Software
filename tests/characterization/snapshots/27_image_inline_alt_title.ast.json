@@ -1,0 +1,37 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "![Texto alternativo](https://example.com/img.png \"Legenda da imagem\")\n",
+        "type": "paragraph"
+      },
+      {
+        "children": [],
+        "destination": "https://example.com/img.png",
+        "title": "Legenda da imagem",
+        "type": "image"
+      },
+      {
+        "literal": "Texto alternativo",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "destination": "https://example.com/img.png",
+    "title": "Legenda da imagem",
+    "type": "image"
+  },
+  {
+    "children": [],
+    "string_content": "![Texto alternativo](https://example.com/img.png \"Legenda da imagem\")\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

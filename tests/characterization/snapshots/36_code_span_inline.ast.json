@@ -1,0 +1,41 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Use `codigo_inline` e ``crase `interna` dupla``.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Use ",
+        "type": "text"
+      },
+      {
+        "literal": "codigo_inline",
+        "type": "code"
+      },
+      {
+        "literal": " e ",
+        "type": "text"
+      },
+      {
+        "literal": "crase `interna` dupla",
+        "type": "code"
+      },
+      {
+        "literal": ".",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Use `codigo_inline` e ``crase `interna` dupla``.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]
