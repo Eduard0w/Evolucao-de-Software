@@ -1,18 +1,19 @@
 language: python
-dist: bionic
+dist: focal
 python:
-  - "2.7"
-  - "3.5"
-  - "3.6"
-  - "3.7"
-  - "3.8"
+  - "3.9"
+  - "3.10"
+  - "3.11"
+  - "3.12"
+
 install:
- - python setup.py install
- - pip install -r test_reqs.txt
+  - python -m pip install --upgrade pip
+  - python -m pip install -e ".[test]"
+
 script:
- - python setup.py flake8
- - python commonmark/tests/unit_tests.py
- - python setup.py test
- - cmark commonmark/tests/test.md
- - cmark commonmark/tests/test.md -a
- - cmark commonmark/tests/test.md -aj
+  - flake8 commonmark
+  - python -m commonmark.tests.unit_tests
+  - python -m commonmark.tests.run_spec_tests
+  - cmark commonmark/tests/test.md
+  - cmark commonmark/tests/test.md -a
+  - cmark commonmark/tests/test.md -aj
