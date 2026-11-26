@@ -1,0 +1,25 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Título Setext nível 2\n",
+        "type": "heading"
+      },
+      {
+        "literal": "Título Setext nível 2",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Título Setext nível 2\n",
+    "type": "heading"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

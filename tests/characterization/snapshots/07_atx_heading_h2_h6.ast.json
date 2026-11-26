@@ -1,0 +1,55 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Título 2",
+        "type": "heading"
+      },
+      {
+        "literal": "Título 2",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Título 3",
+        "type": "heading"
+      },
+      {
+        "literal": "Título 3",
+        "type": "text"
+      }
+    ],
+    "string_content": "Título 2",
+    "type": "heading"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Título 6",
+        "type": "heading"
+      },
+      {
+        "literal": "Título 6",
+        "type": "text"
+      }
+    ],
+    "string_content": "Título 3",
+    "type": "heading"
+  },
+  {
+    "children": [],
+    "string_content": "Título 6",
+    "type": "heading"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

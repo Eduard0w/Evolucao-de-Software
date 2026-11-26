@@ -1,0 +1,80 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "*a*b**c**d***e***f\n",
+        "type": "paragraph"
+      },
+      {
+        "children": [],
+        "type": "emph"
+      },
+      {
+        "literal": "a",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "literal": "b",
+        "type": "text"
+      },
+      {
+        "children": [],
+        "type": "strong"
+      },
+      {
+        "literal": "c",
+        "type": "text"
+      }
+    ],
+    "type": "emph"
+  },
+  {
+    "children": [
+      {
+        "literal": "d",
+        "type": "text"
+      },
+      {
+        "children": [],
+        "type": "emph"
+      },
+      {
+        "children": [],
+        "type": "strong"
+      },
+      {
+        "literal": "e",
+        "type": "text"
+      }
+    ],
+    "type": "strong"
+  },
+  {
+    "children": [],
+    "type": "strong"
+  },
+  {
+    "children": [
+      {
+        "literal": "f",
+        "type": "text"
+      }
+    ],
+    "type": "emph"
+  },
+  {
+    "children": [],
+    "string_content": "*a*b**c**d***e***f\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

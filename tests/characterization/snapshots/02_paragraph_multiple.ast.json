@@ -1,0 +1,40 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Primeiro parágrafo.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Primeiro parágrafo.",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Segundo parágrafo.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Segundo parágrafo.",
+        "type": "text"
+      }
+    ],
+    "string_content": "Primeiro parágrafo.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "string_content": "Segundo parágrafo.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

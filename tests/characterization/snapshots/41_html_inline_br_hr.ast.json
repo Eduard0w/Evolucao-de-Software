@@ -1,0 +1,38 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Linha um<br>Linha dois\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Linha um",
+        "type": "text"
+      },
+      {
+        "literal": "<br>",
+        "type": "html_inline"
+      },
+      {
+        "literal": "Linha dois",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "literal": "<hr>",
+        "type": "html_block"
+      }
+    ],
+    "string_content": "Linha um<br>Linha dois\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

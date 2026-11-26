@@ -1,0 +1,65 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "\\*não é ênfase\\* \\[não é link\\] \\\\barra\\\\\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "*",
+        "type": "text"
+      },
+      {
+        "literal": "não é ênfase",
+        "type": "text"
+      },
+      {
+        "literal": "*",
+        "type": "text"
+      },
+      {
+        "literal": " ",
+        "type": "text"
+      },
+      {
+        "literal": "[",
+        "type": "text"
+      },
+      {
+        "literal": "não é link",
+        "type": "text"
+      },
+      {
+        "literal": "]",
+        "type": "text"
+      },
+      {
+        "literal": " ",
+        "type": "text"
+      },
+      {
+        "literal": "\\",
+        "type": "text"
+      },
+      {
+        "literal": "barra",
+        "type": "text"
+      },
+      {
+        "literal": "\\",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "\\*não é ênfase\\* \\[não é link\\] \\\\barra\\\\\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

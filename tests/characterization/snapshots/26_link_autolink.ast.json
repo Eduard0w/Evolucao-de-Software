@@ -1,0 +1,63 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Link automático <https://example.com/auto> e e-mail <contato@example.com>.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Link automático ",
+        "type": "text"
+      },
+      {
+        "children": [],
+        "destination": "https://example.com/auto",
+        "type": "link"
+      },
+      {
+        "literal": "https://example.com/auto",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "literal": " e e-mail ",
+        "type": "text"
+      },
+      {
+        "children": [],
+        "destination": "mailto:contato@example.com",
+        "type": "link"
+      },
+      {
+        "literal": "contato@example.com",
+        "type": "text"
+      }
+    ],
+    "destination": "https://example.com/auto",
+    "type": "link"
+  },
+  {
+    "children": [
+      {
+        "literal": ".",
+        "type": "text"
+      }
+    ],
+    "destination": "mailto:contato@example.com",
+    "type": "link"
+  },
+  {
+    "children": [],
+    "string_content": "Link automático <https://example.com/auto> e e-mail <contato@example.com>.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

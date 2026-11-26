@@ -1,0 +1,25 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Texto simples dentro de um parágrafo.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Texto simples dentro de um parágrafo.",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Texto simples dentro de um parágrafo.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

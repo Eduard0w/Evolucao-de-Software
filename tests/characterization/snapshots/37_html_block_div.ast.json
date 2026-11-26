@@ -1,0 +1,15 @@
+[
+  {
+    "children": [
+      {
+        "literal": "<div>\n  <p>Conteúdo dentro de div</p>\n</div>",
+        "type": "html_block"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

@@ -1,0 +1,200 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": false,
+          "type": "bullet"
+        },
+        "type": "list"
+      },
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": false,
+          "type": "bullet"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Item apertado 1\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Item apertado 1",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Item apertado 1\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Item apertado 2\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Item apertado 2",
+        "type": "text"
+      }
+    ],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": false,
+      "type": "bullet"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "string_content": "Item apertado 2\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Item solto 1\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Item solto 1",
+        "type": "text"
+      }
+    ],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "string_content": "Item solto 1\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": "-",
+          "delimiter": null,
+          "marker_offset": 0,
+          "padding": 2,
+          "start": null,
+          "tight": true,
+          "type": "bullet"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Item solto 2\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Item solto 2",
+        "type": "text"
+      }
+    ],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "string_content": "Item solto 2\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": true,
+      "type": "bullet"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": "-",
+      "delimiter": null,
+      "marker_offset": 0,
+      "padding": 2,
+      "start": null,
+      "tight": false,
+      "type": "bullet"
+    },
+    "type": "list"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

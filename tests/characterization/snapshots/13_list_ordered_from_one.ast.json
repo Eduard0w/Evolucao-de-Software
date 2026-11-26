@@ -1,0 +1,159 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": null,
+          "delimiter": ".",
+          "marker_offset": 0,
+          "padding": 3,
+          "start": 1,
+          "tight": true,
+          "type": "ordered"
+        },
+        "type": "list"
+      },
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": null,
+          "delimiter": ".",
+          "marker_offset": 0,
+          "padding": 3,
+          "start": 1,
+          "tight": true,
+          "type": "ordered"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Primeiro\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Primeiro",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Primeiro\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": null,
+          "delimiter": ".",
+          "marker_offset": 0,
+          "padding": 3,
+          "start": 2,
+          "tight": true,
+          "type": "ordered"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Segundo\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Segundo",
+        "type": "text"
+      }
+    ],
+    "list_data": {
+      "bullet_char": null,
+      "delimiter": ".",
+      "marker_offset": 0,
+      "padding": 3,
+      "start": 1,
+      "tight": true,
+      "type": "ordered"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "string_content": "Segundo\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [
+      {
+        "children": [],
+        "list_data": {
+          "bullet_char": null,
+          "delimiter": ".",
+          "marker_offset": 0,
+          "padding": 3,
+          "start": 3,
+          "tight": true,
+          "type": "ordered"
+        },
+        "type": "item"
+      },
+      {
+        "children": [],
+        "string_content": "Terceiro\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Terceiro",
+        "type": "text"
+      }
+    ],
+    "list_data": {
+      "bullet_char": null,
+      "delimiter": ".",
+      "marker_offset": 0,
+      "padding": 3,
+      "start": 2,
+      "tight": true,
+      "type": "ordered"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "string_content": "Terceiro\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": null,
+      "delimiter": ".",
+      "marker_offset": 0,
+      "padding": 3,
+      "start": 3,
+      "tight": true,
+      "type": "ordered"
+    },
+    "type": "item"
+  },
+  {
+    "children": [],
+    "list_data": {
+      "bullet_char": null,
+      "delimiter": ".",
+      "marker_offset": 0,
+      "padding": 3,
+      "start": 1,
+      "tight": true,
+      "type": "ordered"
+    },
+    "type": "list"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

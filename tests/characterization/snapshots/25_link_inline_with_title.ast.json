@@ -1,0 +1,46 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Veja [documentação](https://example.com/docs \"Título do link\").\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Veja ",
+        "type": "text"
+      },
+      {
+        "children": [],
+        "destination": "https://example.com/docs",
+        "title": "Título do link",
+        "type": "link"
+      },
+      {
+        "literal": "documentação",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [
+      {
+        "literal": ".",
+        "type": "text"
+      }
+    ],
+    "destination": "https://example.com/docs",
+    "title": "Título do link",
+    "type": "link"
+  },
+  {
+    "children": [],
+    "string_content": "Veja [documentação](https://example.com/docs \"Título do link\").\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

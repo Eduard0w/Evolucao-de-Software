@@ -1,0 +1,2 @@
+> Primeira linha da citação
+continuação preguiçosa na mesma citação.

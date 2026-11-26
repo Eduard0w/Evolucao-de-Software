@@ -1,0 +1,40 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "type": "block_quote"
+      },
+      {
+        "children": [],
+        "string_content": "Primeira linha da citação\ncontinuação preguiçosa na mesma citação.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Primeira linha da citação",
+        "type": "text"
+      },
+      {
+        "type": "softbreak"
+      },
+      {
+        "literal": "continuação preguiçosa na mesma citação.",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Primeira linha da citação\ncontinuação preguiçosa na mesma citação.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "block_quote"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

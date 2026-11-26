@@ -1,0 +1,1 @@
+Palavra com <span class="destaque">destaque inline</span>.

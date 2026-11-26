@@ -1,0 +1,41 @@
+[
+  {
+    "children": [
+      {
+        "children": [],
+        "string_content": "Letra \\a e dígito \\1 mantêm a barra.\n",
+        "type": "paragraph"
+      },
+      {
+        "literal": "Letra ",
+        "type": "text"
+      },
+      {
+        "literal": "\\",
+        "type": "text"
+      },
+      {
+        "literal": "a e dígito ",
+        "type": "text"
+      },
+      {
+        "literal": "\\",
+        "type": "text"
+      },
+      {
+        "literal": "1 mantêm a barra.",
+        "type": "text"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "string_content": "Letra \\a e dígito \\1 mantêm a barra.\n",
+    "type": "paragraph"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]

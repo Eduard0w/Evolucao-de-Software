@@ -1,0 +1,15 @@
+[
+  {
+    "children": [
+      {
+        "literal": "<!-- comentário HTML de bloco -->",
+        "type": "html_block"
+      }
+    ],
+    "type": "document"
+  },
+  {
+    "children": [],
+    "type": "document"
+  }
+]
