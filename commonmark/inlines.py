@@ -197,7 +197,8 @@ def _drop_last_chars(node, count):
 
 def _move_nodes_between(first, last, parent):
     """Move the siblings strictly between ``first`` and ``last`` into
-    ``parent``, keeping their order."""
+    ``parent``, keeping their order. With ``last=None``, every sibling
+    after ``first`` is moved."""
     node = first.nxt
     while node and node != last:
         following = node.nxt
@@ -668,108 +669,116 @@ class InlineParser(object):
         to block's children. If there is a matching delimiter,
         remove it from the delimiter stack.
         """
-        title = None
-        matched = False
         self.pos += 1
         startpos = self.pos
 
         # get last [ or ![
         opener = self.brackets
-
         if opener is None:
-            # no matched opener, just return a literal
-            block.append_child(text(']'))
-            return True
-
+            return self._literal_close_bracket(block)
         if not opener.get('active'):
-            # no matched opener, just return a literal
-            block.append_child(text(']'))
-            # take opener off brackets stack
             self.removeBracket()
-            return True
+            return self._literal_close_bracket(block)
 
-        # If we got here, opener is a potential opener
-        is_image = opener.get('image')
-
-        # Check to see if we have a link/image
-
-        savepos = self.pos
-
-        # Inline link?
-        if self.peek() == '(':
-            self.pos += 1
-            self.spnl()
-            dest = self.parseLinkDestination()
-            if dest is not None and self.spnl():
-                # make sure there's a space before the title
-                if re.search(reWhitespaceChar, self.subject[self.pos-1]):
-                    title = self.parseLinkTitle()
-                if self.spnl() and self.peek() == ')':
-                    self.pos += 1
-                    matched = True
-            else:
-                self.pos = savepos
-
-        if not matched:
-            # Next, see if there's a link label
-            beforelabel = self.pos
-            n = self.parseLinkLabel()
-            if n > 2:
-                reflabel = self.subject[beforelabel:beforelabel + n]
-            elif not opener.get('bracket_after'):
-                # Empty or missing second label means to use the first
-                # label as the reference.  The reference must not
-                # contain a bracket. If we know there's a bracket, we
-                # don't even bother checking it.
-                reflabel = self.subject[opener.get('index'):startpos]
-            if n == 0:
-                # If shortcut reference link, rewind before spaces we skipped.
-                self.pos = savepos
-
-            if reflabel:
-                # lookup rawlabel in refmap
-                link = self.refmap.get(normalize_reference(reflabel))
-                if link:
-                    dest = link['destination']
-                    title = link['title']
-                    matched = True
-
-        if matched:
-            node = Node('image' if is_image else 'link', None)
-
-            node.destination = dest
-            node.title = title or ''
-            tmp = opener.get('node').nxt
-            while tmp:
-                nxt = tmp.nxt
-                tmp.unlink()
-                node.append_child(tmp)
-                tmp = nxt
-            block.append_child(node)
-            self.processEmphasis(opener.get('previousDelimiter'))
-            self.removeBracket()
-            opener.get('node').unlink()
-
-            # We remove this bracket and processEmphasis will remove
-            # later delimiters.
-            # Now, for a link, we also deactivate earlier link openers.
-            # (no links in links)
-            if not is_image:
-                opener = self.brackets
-                while opener is not None:
-                    if not opener.get('image'):
-                        # deactivate this opener
-                        opener['active'] = False
-                    opener = opener.get('previous')
-
-            return True
-        else:
-            # no match
-            # remove this opener from stack
+        target = self._parse_inline_link()
+        if target is None:
+            target = self._parse_reference_link(opener, startpos)
+        if target is None:
             self.removeBracket()
             self.pos = startpos
-            block.append_child(text(']'))
-            return True
+            return self._literal_close_bracket(block)
+
+        destination, title = target
+        self._build_link(block, opener, destination, title)
+        return True
+
+    @staticmethod
+    def _literal_close_bracket(block):
+        """No link here: keep the ``]`` as plain text."""
+        block.append_child(text(']'))
+        return True
+
+    def _parse_inline_link(self):
+        """Inline link: ``(destination "title")`` right after the ``]``.
+
+        Returns ``(destination, title)`` or None.
+        """
+        if self.peek() != '(':
+            return None
+        savepos = self.pos
+        self.pos += 1
+        self.spnl()
+        dest = self.parseLinkDestination()
+        if dest is None:
+            self.pos = savepos
+            return None
+
+        self.spnl()
+        title = None
+        # a title must be separated from the destination by whitespace
+        if re.search(reWhitespaceChar, self.subject[self.pos - 1]):
+            title = self.parseLinkTitle()
+        self.spnl()
+        if self.peek() == ')':
+            self.pos += 1
+            return dest, title
+        # NOTE: unlike commonmark.js, the position is not rewound here.
+        # Behaviour kept as in the original port; see card 09 notes.
+        return None
+
+    def _parse_reference_link(self, opener, startpos):
+        """Full, collapsed or shortcut reference link (``[text][label]``,
+        ``[label][]`` or ``[label]``).
+
+        Returns ``(destination, title)`` from the reference map or None.
+        """
+        beforelabel = self.pos
+        n = self.parseLinkLabel()
+        reflabel = None
+        if n > 2:
+            # full reference: [text][label]
+            reflabel = self.subject[beforelabel:beforelabel + n]
+        elif not opener.get('bracket_after'):
+            # collapsed/shortcut: the first label is the reference.
+            # NOTE: addBracket stores this flag as 'bracketAfter', so this
+            # key is never present; kept as in the original port.
+            reflabel = self.subject[opener.get('index'):startpos]
+        if n == 0:
+            # shortcut reference link: rewind before spaces we skipped
+            self.pos = startpos
+
+        if not reflabel:
+            return None
+        link = self.refmap.get(normalize_reference(reflabel))
+        if not link:
+            return None
+        return link['destination'], link['title']
+
+    def _build_link(self, block, opener, destination, title):
+        """Create the link/image node, wrapping everything that follows
+        the opening bracket, and update both stacks."""
+        is_image = opener.get('image')
+        node = Node('image' if is_image else 'link', None)
+        node.destination = destination
+        node.title = title or ''
+        _move_nodes_between(opener.get('node'), None, node)
+        block.append_child(node)
+
+        self.processEmphasis(opener.get('previousDelimiter'))
+        self.removeBracket()
+        opener.get('node').unlink()
+
+        # processEmphasis already removed the later delimiters. For a link,
+        # earlier link openers are deactivated too: no links inside links.
+        if not is_image:
+            self._deactivate_link_openers()
+
+    def _deactivate_link_openers(self):
+        opener = self.brackets
+        while opener is not None:
+            if not opener.get('image'):
+                opener['active'] = False
+            opener = opener.get('previous')
 
     def addBracket(self, node, index, image):
         if self.brackets is not None:
