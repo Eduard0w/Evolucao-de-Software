@@ -104,7 +104,7 @@ something like this:
 ::
 
    $ pyvenv venv
-   $ ./venv/bin/python setup.py develop test
+   $ ./venv/bin/python -m pip install -e ".[test]"
 
 The tests script, ``commonmark/tests/run_spec_tests.py``, is pretty much a devtool. As
 well as running all the tests embedded in ``spec.txt`` it also allows you

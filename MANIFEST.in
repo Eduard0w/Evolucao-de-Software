@@ -11,7 +11,6 @@ include commonmark/entitytrans.py
 include commonmark/inlines.py
 include commonmark/main.py
 include commonmark/node.py
-include commonmark/utils.py
 include commonmark/render/__init__.py
 include commonmark/render/renderer.py
 include commonmark/render/html.py
